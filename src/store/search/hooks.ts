@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchUpdater } from "./updater";
 import { clearSearch, setSearchQuery } from "./actions";
 import { UserState } from "store/user/types";
 import { SearchState } from "./reducer";
+import SearchQueryUpdater from "./updater";
 
 export interface RootState {
   user: UserState;
@@ -27,7 +27,6 @@ export function useSetSearchQuery() {
   );
 }
 
-// Main search hook with all functionality
 export function useSearch() {
   const dispatch = useDispatch();
   const searchQuery = useSelector(
@@ -36,13 +35,11 @@ export function useSearch() {
   const isLoading = useSelector((state: RootState) => state.search.isLoading);
   const error = useSelector((state: RootState) => state.search.error);
 
-  const searchUpdater = new SearchUpdater(dispatch);
-
   const handleSearch = useCallback(
     async (query: string) => {
-      await searchUpdater.updateSearchQuery(query);
+      await SearchQueryUpdater(dispatch, query);
     },
-    [searchUpdater]
+    [dispatch]
   );
 
   const handleClearSearch = useCallback(() => {

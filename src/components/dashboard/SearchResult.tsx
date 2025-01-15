@@ -1,18 +1,17 @@
-import styled from "styled-components";
-import { useDexSearch } from "store/api/hooks";
 import { useEffect, useMemo } from "react";
-import { useSearchQuery, useSetSearchQuery } from "store/search/hooks";
+import { useDexSearch } from "store/api/hooks";
+import { useSearch, useSetSearchQuery } from "store/search/hooks";
+import styled from "styled-components";
 import Row from "./Row";
 
 const Wrap = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
   gap: 8px;
   padding: 8px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const Loading = styled.div`
@@ -28,19 +27,11 @@ const Loading = styled.div`
 `;
 
 const NoResult = styled(Loading);
-const SearchResultItem = styled.div`
-  width: unset;
-  height: 16px;
-  color: ${({ theme }) => theme.text0};
-  font-size: 14px;
-  font-weight: 400px;
-`;
 
-export default function RetrievedData(): React.ReactNode {
+export default function SearchResult(): React.ReactNode {
   const { searchByQuery, searchByTokenAddresses, pairs, loading } =
     useDexSearch();
-
-  const searchQuery = useSearchQuery();
+  const { searchQuery } = useSearch();
   const setSearchQuery = useSetSearchQuery();
 
   useEffect(() => {
@@ -56,10 +47,8 @@ export default function RetrievedData(): React.ReactNode {
       <Wrap>
         {!pairs && loading && <Loading>Loading...</Loading>}
         {!pairs && !loading && <NoResult>Nothing was found!</NoResult>}
-        {pairs.map((pair, idx) => (
-          <Row key={idx} pair={pair} />
-        ))}
+        {pairs?.map((pair, idx) => <Row key={idx} pair={pair} />)}
       </Wrap>
     );
-  }, [pairs, searchByQuery, setSearchQuery]);
+  }, [pairs, loading, searchQuery]);
 }

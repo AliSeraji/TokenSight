@@ -1,7 +1,6 @@
-import Image from "next/image";
-import { useSearchQuery, useSetSearchQuery } from "store/search/hooks";
+import { useCallback, useEffect } from "react";
+import { useSearch, useSetSearchQuery } from "store/search/hooks";
 import styled, { useTheme } from "styled-components";
-import SEARCH_ICON from "/public/search.svg";
 import SearchIcon from "components/constants/icons/SearchIcon";
 
 const InputElement = styled.input`
@@ -10,13 +9,13 @@ const InputElement = styled.input`
   justify-content: flex-start;
   font-size: 24px;
   border: none;
-  background: ${({ theme }) => theme.GrayBlueDark20};
+  background: ${({ theme }) => theme.GrayBlueDark90};
   width: 100%;
   height: 100%;
   padding-left: 12px;
+  border-radius: 8px;
   color: ${({ theme }) => theme.text0};
-  & > ::placeholder {
-    width: 100%;
+  &::placeholder {
     color: ${({ theme }) => theme.text2};
   }
   &:focus {
@@ -38,20 +37,18 @@ const Wrap = styled.div`
   flex-direction: row;
   justify-content: space-between;
   flex: 1;
+  width: 100%;
   max-width: 400px;
-  max-height: 46px;
+  height: 42px;
+  max-height: 100%;
   font-size: 14px;
   padding-right: 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.White30};
-  background-color: ${({ theme }) => theme.BlackBoxBG40};
-
-  &:hover {
-    cursor: pointer;
-  }
+  background: ${({ theme }) => theme.BlackBoxBG};
 
   ${({ theme }) => theme.mediaQueries.md`
-    height: 38px;
+    height: 32px;
   `}
 `;
 
@@ -85,20 +82,33 @@ const SearchBtnWrap = styled.button`
 `;
 
 export default function SearchBox(): React.ReactNode {
-  const searchQuery = useSearchQuery();
+  const { searchQuery } = useSearch();
   const setSearchQuery = useSetSearchQuery();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      setSearchQuery(newValue);
+    },
+    [setSearchQuery]
+  );
+
+  // Optional: Add debouncing if needed
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      // Trigger search here if needed
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
 
   return (
     <Wrap>
       <SearchContent
         type="text"
         title="Search"
-        placeholder={"token, address ..."}
-        spellCheck="false"
+        placeholder="token, address ..."
+        spellCheck={false}
         value={searchQuery}
         onChange={handleChange}
         autoFocus
@@ -113,6 +123,7 @@ export function SearchButton({
   toggle: () => void;
 }): React.ReactNode {
   const theme = useTheme();
+
   return (
     <SearchBtnWrap onClick={toggle}>
       <div>Search</div>

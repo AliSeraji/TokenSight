@@ -41,12 +41,9 @@ export default function Dashboard(): React.ReactNode {
   return (
     <Wrap>
       <SearchWrap>
-        <SearchBox />
         <SearchButton toggle={toggleModal} />
       </SearchWrap>
-      <Container>
-        <RetrievedData />
-      </Container>
+      <Container></Container>
       <SearchModal open={openModal} toggle={toggleModal} />
     </Wrap>
   );

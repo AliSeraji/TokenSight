@@ -1,18 +1,89 @@
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
 import styled from "styled-components";
+import SearchBox from "./SearchBox";
+import SearchResult from "./SearchResult";
 
 const Wrap = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400;
+  width: 800px;
+  height: 700px;
   background: ${({ theme }) => theme.Black};
   border: 2px solid ${({ theme }) => theme.Black50};
   box-shadow: 24;
+  display: flex;
+  flex-direction: column;
   z-index: 100;
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 12px;
+  background: none;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  flex: 1;
+  overflow: hidden;
+`;
+
+const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 28px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.White};
+  &:hover {
+    cursor: default;
+  }
+`;
+
+const ExitBtn = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  color: ${({ theme }) => theme.white};
+  font-size: 28px;
+  font-weight: 600;
+  &:hover {
+    background: ${({ theme }) => theme.GrayBlueDark90};
+    cursor: pointer;
+  }
+`;
+
+const SearchBarWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 34px;
+  margin-bottom: 12px;
+`;
+
+const ListWrap = styled.div`
+  flex: 1;
+  overflow: hidden;
 `;
 
 export default function SearchModal({
@@ -30,12 +101,20 @@ export default function SearchModal({
       aria-describedby="modal-modal-description"
     >
       <Wrap>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        <Header>
+          <Title>Search</Title>
+          <ExitBtn onClick={toggle}>X</ExitBtn>
+        </Header>
+        <Container>
+          <Body>
+            <SearchBarWrap>
+              <SearchBox />
+            </SearchBarWrap>
+            <ListWrap>
+              <SearchResult />
+            </ListWrap>
+          </Body>
+        </Container>
       </Wrap>
     </Modal>
   );

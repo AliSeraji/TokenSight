@@ -16,6 +16,7 @@ import { store } from "store";
 import { DefaultLayout } from "components/layout";
 import { createAppKit } from "@reown/appkit/react";
 import { mainnet } from "@reown/appkit/networks";
+import { Updaters } from "store/updaters";
 
 // Configure Web3Modal
 // createWeb3Modal({
@@ -51,6 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <ReduxProvider store={store}>
           <ThemeProvider>
             <GlobalStyles />
+            <Updaters />
             <DefaultLayout>
               <Component {...pageProps} />
             </DefaultLayout>
