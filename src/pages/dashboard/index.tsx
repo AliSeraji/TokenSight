@@ -11,12 +11,11 @@ import styled from "styled-components";
 
 const Wrap = styled.div`
   position: relative;
-  width: 100%;
   height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 12px;
   background: ${({ theme }) => theme.Black30};
 `;
 
@@ -30,10 +29,10 @@ const SearchDataWrap = styled.div<{ $isSelected?: boolean }>`
 `;
 
 const Container = styled.div`
-  flex: 1;
-  min-width: 0;
+  width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
 `;
 
 const SearchBtnWrap = styled.div`

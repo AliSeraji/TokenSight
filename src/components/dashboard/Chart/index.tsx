@@ -4,11 +4,20 @@ import { styled } from "styled-components";
 
 const ChartContainer = styled.div`
   flex: 1;
-  min-width: 0;
-  position: relative;
+  width: 100%;
   height: 100%;
+  display: flex;
 `;
 
+const WidgetWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+
+  & > iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+`;
 export default function Chart({
   baseTokenSymbol,
   quoteTokenSymbol,
@@ -16,15 +25,22 @@ export default function Chart({
   baseTokenSymbol: string | undefined;
   quoteTokenSymbol: string | undefined;
 }): React.ReactNode {
-  console.log(baseTokenSymbol + ":" + quoteTokenSymbol);
-
   const symbol = useMemo(() => {
     if (!baseTokenSymbol || !quoteTokenSymbol) return "NASDAQ:AAPL";
     return `${baseTokenSymbol}:${quoteTokenSymbol}`;
   }, [quoteTokenSymbol, baseTokenSymbol]);
   return (
     <ChartContainer>
-      <TradingViewStockChartWidget symbol={symbol} theme="Dark" range="10m" />
+      <WidgetWrapper>
+        <TradingViewStockChartWidget
+          symbol={symbol}
+          theme="Dark"
+          range="10m"
+          autosize
+          allow_symbol_change
+          style="2"
+        />
+      </WidgetWrapper>
     </ChartContainer>
   );
 }

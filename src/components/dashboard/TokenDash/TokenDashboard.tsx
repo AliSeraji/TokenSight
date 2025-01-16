@@ -10,18 +10,19 @@ const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: unset;
+  height: 100%;
   width: 100%;
   overflow-y: scroll;
 `;
 
 const NoData = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex: 1;
 `;
 
 export default function TokenDashboard({
@@ -47,7 +48,10 @@ export default function TokenDashboard({
           <AdvancedStats pairData={pairData} />
         </>
       ) : (
-        <NoData>No Data</NoData>
+        <NoData>
+          <div>No Data</div>
+          <div>Click on the Search Button to See Data</div>
+        </NoData>
       )}
     </DashboardContainer>
   );
