@@ -24,11 +24,7 @@ export default function Chart({
   }, [quoteTokenSymbol, baseTokenSymbol]);
   return (
     <ChartContainer>
-      <TradingViewStockChartWidget
-        symbol={"NASDAQ:AAPL"}
-        theme="Dark"
-        range="10m"
-      />
+      <TradingViewStockChartWidget symbol={symbol} theme="Dark" range="10m" />
     </ChartContainer>
   );
 }
