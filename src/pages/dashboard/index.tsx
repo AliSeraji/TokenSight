@@ -1,3 +1,4 @@
+import Chart from "components/dashboard/Chart";
 import { SearchButton } from "components/dashboard/SearchBox";
 import SearchModal from "components/dashboard/SearchModal";
 import TokenDashboard from "components/dashboard/TokenDash/TokenDashboard";
@@ -26,12 +27,10 @@ const SearchDataWrap = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 12px;
 `;
 
 const SearchBtnWrap = styled.div`
@@ -55,7 +54,12 @@ export default function Dashboard(): React.ReactNode {
         </SearchBtnWrap>
         <TokenDashboard pairData={selectedPair} />
       </SearchDataWrap>
-      <Container></Container>
+      <Container>
+        <Chart
+          baseTokenSymbol={selectedPair?.baseToken.symbol}
+          quoteTokenSymbol={selectedPair?.quoteToken.symbol}
+        />
+      </Container>
       <SearchModal />
     </Wrap>
   );

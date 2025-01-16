@@ -5040,6 +5040,11 @@ react-redux@^9.2.0:
     "@types/use-sync-external-store" "^0.0.6"
     use-sync-external-store "^1.4.0"
 
+react-tradingview-components@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-tradingview-components/-/react-tradingview-components-2.0.1.tgz#28ace4085c412645be57daf681ec2582ab172aff"
+  integrity sha512-lVoMygjHO1lNu5BAui6t0xR3U6a32vzka5PPRwtamIj/z6SxDUf/wJ0dAXDCGwCnFm8W+umJO8KcSTlRfZn/tg==
+
 react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
