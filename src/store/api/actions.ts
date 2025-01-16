@@ -1,10 +1,11 @@
 import { createAction } from "@reduxjs/toolkit";
 import { PairData } from "./types";
 
-export const searchRequest = createAction("dex/searchRequest");
-export const searchSuccess = createAction<PairData[]>("dex/searchSuccess");
-export const searchFailure = createAction<string>("dex/searchFailure");
+export const searchRequest = createAction("api/searchRequest");
+export const searchSuccess = createAction<PairData[]>("api/searchSuccess");
+export const searchFailure = createAction<string>("api/searchFailure");
 export const setSearchType = createAction<"token" | "query">(
-  "dex/setSearchType"
+  "api/setSearchType"
 );
-export const clearSearch = createAction("dex/clear");
+export const clearSearch = createAction("api/clear");
+export const setSelectedPair = createAction<PairData>("api/setSelectedPair");

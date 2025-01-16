@@ -2,6 +2,8 @@ import Modal from "@mui/material/Modal";
 import styled from "styled-components";
 import SearchBox from "./SearchBox";
 import SearchResult from "./SearchResult";
+import { useCloseSearchModal, useSearchModal } from "store/search/hooks";
+import { useCallback } from "react";
 
 const Wrap = styled.div`
   position: absolute;
@@ -86,24 +88,21 @@ const ListWrap = styled.div`
   overflow: hidden;
 `;
 
-export default function SearchModal({
-  open,
-  toggle,
-}: {
-  open: boolean;
-  toggle: () => void;
-}) {
+export default function SearchModal() {
+  const isOpen = useSearchModal();
+  const closeModal = useCloseSearchModal();
+
   return (
     <Modal
-      open={open}
-      onClose={toggle}
+      open={isOpen}
+      onClose={() => closeModal()}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Wrap>
         <Header>
           <Title>Search</Title>
-          <ExitBtn onClick={toggle}>X</ExitBtn>
+          <ExitBtn onClick={() => closeModal()}>X</ExitBtn>
         </Header>
         <Container>
           <Body>

@@ -1,9 +1,10 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSearch, setSearchQuery } from "./actions";
+import { clearSearch, setSearchQuery, toggleSearchModal } from "./actions";
 import { UserState } from "store/user/types";
 import { SearchState } from "./reducer";
 import SearchQueryUpdater from "./updater";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 
 export interface RootState {
   user: UserState;
@@ -53,4 +54,22 @@ export function useSearch() {
     handleSearch,
     handleClearSearch,
   };
+}
+
+export function useSearchModal(): boolean {
+  return useAppSelector((state) => state.search.isModalOpen);
+}
+
+export function useOpenSearchModal() {
+  const dispatch = useAppDispatch();
+  return useCallback(() => {
+    dispatch(toggleSearchModal(true));
+  }, [dispatch]);
+}
+
+export function useCloseSearchModal() {
+  const dispatch = useAppDispatch();
+  return useCallback(() => {
+    dispatch(toggleSearchModal(false));
+  }, [dispatch]);
 }

@@ -2,6 +2,10 @@ import { PairData } from "store/api/types";
 import styled from "styled-components";
 import Image from "next/image";
 import { truncateAddress } from "utils/functions";
+import { useSetSelectedPair } from "store/api/hooks";
+import { useCallback } from "react";
+import { useCloseSearchModal } from "store/search/hooks";
+import SafeImage from "components/ImageWithFallback";
 
 const Warp = styled.div`
   display: flex;
@@ -13,9 +17,9 @@ const Warp = styled.div`
   background: ${({ theme }) => theme.BlackBoxBG50};
   border-radius: 8px;
   border: 2px solid transparent;
+  transition: all 0.3s ease;
   &:hover {
     cursor: pointer;
-    background: ${({ theme }) => theme.BlackBoxBG90};
     border: 2px solid ${({ theme }) => theme.GrayBlueDark};
   }
 `;
@@ -77,9 +81,16 @@ const AddressesWarper = styled.div`
 `;
 
 export default function Row({ pair }: { pair: PairData }): React.ReactNode {
+  const setSelectedPair = useSetSelectedPair();
+  const closeModal = useCloseSearchModal();
+  const handleClick = useCallback(() => {
+    setSelectedPair(pair);
+    closeModal();
+  }, []);
+
   return (
-    <Warp>
-      <MainImage
+    <Warp onClick={handleClick}>
+      <SafeImage
         src={pair.info?.imageUrl}
         alt={"icon"}
         width={60}

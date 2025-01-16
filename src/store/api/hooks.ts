@@ -2,7 +2,9 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { DexUpdater } from "./updater";
-import { clearSearch } from "./actions";
+import { clearSearch, setSelectedPair } from "./actions";
+import { PairData } from "./types";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 
 export function useDexSearch() {
   const dispatch = useDispatch();
@@ -42,4 +44,19 @@ export function useDexSearch() {
     searchByQuery,
     clearResults,
   };
+}
+
+export function useSelectedPair(): PairData | null {
+  return useAppSelector((state) => state.dexTokens.selectedPair);
+}
+
+export function useSetSelectedPair() {
+  const dispatch = useAppDispatch();
+  const setter = useCallback(
+    (pair: PairData) => {
+      dispatch(setSelectedPair(pair));
+    },
+    [dispatch]
+  );
+  return setter;
 }

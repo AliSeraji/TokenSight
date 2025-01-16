@@ -8,3 +8,6 @@ export const setSearchError = createAction<string | null>(
   "search/setSearchError"
 );
 export const clearSearch = createAction("search/clearSearch");
+export const toggleSearchModal = createAction<boolean>(
+  "search/toggleSearchModal"
+);

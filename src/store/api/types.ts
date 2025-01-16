@@ -58,4 +58,5 @@ export interface DexState {
   error: string | null;
   lastSearchQuery: string | null;
   lastSearchType: "token" | "query" | null;
+  selectedPair: PairData | null;
 }

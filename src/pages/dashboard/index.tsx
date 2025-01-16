@@ -1,7 +1,8 @@
-import RetrievedData from "components/dashboard/Content";
-import SearchBox, { SearchButton } from "components/dashboard/SearchBox";
+import { SearchButton } from "components/dashboard/SearchBox";
 import SearchModal from "components/dashboard/SearchModal";
-import { useState } from "react";
+import TokenDashboard from "components/dashboard/TokenDash/TokenDashboard";
+import { useSelectedPair } from "store/api/hooks";
+import { useOpenSearchModal } from "store/search/hooks";
 import styled from "styled-components";
 
 const Wrap = styled.div`
@@ -9,20 +10,19 @@ const Wrap = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   gap: 12px;
   background: ${({ theme }) => theme.Black30};
 `;
 
-const SearchWrap = styled.div`
-  width: 100%;
-  height: 58px;
-  padding: 8px 12px;
+const SearchDataWrap = styled.div`
+  min-width: 400px;
+  height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  background: ${({ theme }) => theme.White10};
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid ${({ theme }) => theme.White10};
 `;
 
 const Container = styled.div`
@@ -34,17 +34,29 @@ const Container = styled.div`
   gap: 12px;
 `;
 
-export default function Dashboard(): React.ReactNode {
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const toggleModal = () => setOpenModal(!openModal);
+const SearchBtnWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: unset;
+  padding: 12px;
+  padding-bottom: 4px;
+`;
 
+export default function Dashboard(): React.ReactNode {
+  const openModal = useOpenSearchModal();
+  const selectedPair = useSelectedPair();
   return (
     <Wrap>
-      <SearchWrap>
-        <SearchButton toggle={toggleModal} />
-      </SearchWrap>
+      <SearchDataWrap>
+        <SearchBtnWrap>
+          <SearchButton toggle={() => openModal()} />
+        </SearchBtnWrap>
+        <TokenDashboard pairData={selectedPair} />
+      </SearchDataWrap>
       <Container></Container>
-      <SearchModal open={openModal} toggle={toggleModal} />
+      <SearchModal />
     </Wrap>
   );
 }

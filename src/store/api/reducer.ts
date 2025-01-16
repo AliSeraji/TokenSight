@@ -5,6 +5,7 @@ import {
   searchFailure,
   setSearchType,
   clearSearch,
+  setSelectedPair,
 } from "./actions";
 import { DexState } from "./types";
 
@@ -14,6 +15,7 @@ const initialState: DexState = {
   error: null,
   lastSearchQuery: null,
   lastSearchType: null,
+  selectedPair: null,
 };
 
 export const dexTokens = createReducer(initialState, (builder) => {
@@ -33,6 +35,9 @@ export const dexTokens = createReducer(initialState, (builder) => {
     })
     .addCase(setSearchType, (state, { payload }) => {
       state.lastSearchType = payload;
+    })
+    .addCase(setSelectedPair, (state, { payload }) => {
+      state.selectedPair = payload;
     })
     .addCase(clearSearch, (state) => {
       state.pairs = [];

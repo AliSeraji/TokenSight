@@ -1,5 +1,9 @@
 import { useCallback, useEffect } from "react";
-import { useSearch, useSetSearchQuery } from "store/search/hooks";
+import {
+  useSearch,
+  useSearchModal,
+  useSetSearchQuery,
+} from "store/search/hooks";
 import styled, { useTheme } from "styled-components";
 import SearchIcon from "components/constants/icons/SearchIcon";
 
@@ -53,18 +57,20 @@ const Wrap = styled.div`
 `;
 
 const SearchBtnWrap = styled.button`
+  width: 100%;
   min-width: 162px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 8px;
   gap: 12px;
-  border: 1px solid ${({ theme }) => theme.White5};
+  border: 1px solid ${({ theme }) => theme.White20};
   border-radius: 8px;
   background: ${({ theme }) => theme.Black50};
   color: ${({ theme }) => theme.GrayText};
   font-size: 14px;
   font-weight: 400;
+  transition: all 0.3s ease;
 
   &:hover {
     cursor: pointer;
@@ -83,6 +89,7 @@ const SearchBtnWrap = styled.button`
 
 export default function SearchBox(): React.ReactNode {
   const { searchQuery } = useSearch();
+  const isOpen = useSearchModal();
   const setSearchQuery = useSetSearchQuery();
 
   const handleChange = useCallback(
@@ -93,14 +100,9 @@ export default function SearchBox(): React.ReactNode {
     [setSearchQuery]
   );
 
-  // Optional: Add debouncing if needed
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      // Trigger search here if needed
-    }, 300);
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
+    if (!isOpen) setSearchQuery("");
+  }, [isOpen]);
 
   return (
     <Wrap>
