@@ -46,6 +46,7 @@ const Wrap = styled.div`
   height: 42px;
   max-height: 100%;
   font-size: 14px;
+  padding: 12px;
   padding-right: 16px;
   border-radius: 8px;
   border: 1px solid ${({ theme }) => theme.White30};
@@ -57,8 +58,8 @@ const Wrap = styled.div`
 `;
 
 const SearchBtnWrap = styled.button`
+  max-width: 100%;
   width: 100%;
-  min-width: 162px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

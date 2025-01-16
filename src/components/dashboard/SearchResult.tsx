@@ -11,7 +11,7 @@ const Wrap = styled.div`
   height: 100%;
   gap: 8px;
   padding: 8px;
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 const Loading = styled.div`

@@ -1,7 +1,10 @@
+import { useAppKitAccount } from "@reown/appkit/react";
 import Chart from "components/dashboard/Chart";
 import { SearchButton } from "components/dashboard/SearchBox";
 import SearchModal from "components/dashboard/SearchModal";
 import TokenDashboard from "components/dashboard/TokenDash/TokenDashboard";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useSelectedPair } from "store/api/hooks";
 import { useOpenSearchModal } from "store/search/hooks";
 import styled from "styled-components";
@@ -17,12 +20,12 @@ const Wrap = styled.div`
   background: ${({ theme }) => theme.Black30};
 `;
 
-const SearchDataWrap = styled.div`
+const SearchDataWrap = styled.div<{ $isSelected?: boolean }>`
   min-width: 400px;
-  height: 100%;
+  height: ${({ $isSelected }) => ($isSelected ? "100%" : "100vh")};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   border-right: 1px solid ${({ theme }) => theme.White10};
 `;
 
@@ -37,18 +40,26 @@ const SearchBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
+  min-width: 100%;
   height: unset;
   padding: 12px;
   padding-bottom: 4px;
 `;
 
 export default function Dashboard(): React.ReactNode {
+  const router = useRouter();
+  const { address, isConnected } = useAppKitAccount();
   const openModal = useOpenSearchModal();
   const selectedPair = useSelectedPair();
+
+  useEffect(() => {
+    if (!address && !isConnected) {
+      router.replace("/login");
+    }
+  }, [address, isConnected]);
   return (
     <Wrap>
-      <SearchDataWrap>
+      <SearchDataWrap $isSelected={selectedPair === null ? false : true}>
         <SearchBtnWrap>
           <SearchButton toggle={() => openModal()} />
         </SearchBtnWrap>

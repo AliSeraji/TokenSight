@@ -10,20 +10,9 @@ const StatsGrid = styled.div`
   flex-direction: column;
 `;
 
-const PriceContainer = styled.div`
-  text-align: right;
-`;
-
 const Price = styled.div`
   font-size: 28px;
   font-weight: bold;
-`;
-
-const PriceChange = styled.div<{ $isPositive?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: ${($isPositive) => ($isPositive ? "#16a34a" : "#dc2626")};
 `;
 
 export default function TokenDetails({

@@ -1,15 +1,8 @@
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
-import { useMemo } from "react";
 import styled from "styled-components";
 import { Z_INDEX } from "styles";
-import { Connector, useAccount, useConnect, useDisconnect } from "wagmi";
-import { walletConnect } from "wagmi/connectors";
 
 const NavbarWrapper = styled.nav`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 72px;
   background: ${({ theme }) => theme.Black90};
   border-bottom: 1px solid ${({ theme }) => theme.White5};
@@ -60,9 +53,8 @@ const ConnectButton = styled.button`
 `;
 
 export function Navbar() {
-  const { address, isConnected, caipAddress, status, embeddedWalletInfo } =
-    useAppKitAccount();
-  const { open, close } = useAppKit();
+  const { address, isConnected } = useAppKitAccount();
+  const { open } = useAppKit();
 
   const formatAddress = (addr: string) => {
     return `${addr.slice(0, 6)}...${addr.slice(-4)}`;

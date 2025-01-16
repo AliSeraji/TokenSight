@@ -3,14 +3,10 @@ import { TradingViewStockChartWidget } from "react-tradingview-components";
 import { styled } from "styled-components";
 
 const ChartContainer = styled.div`
-  width: 100%;
+  flex: 1;
+  min-width: 0;
+  position: relative;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  flex: 1; /* Take up all available space */
-  min-width: 0; /* This prevents flex item from overflowing */
-  position: relative; /* For absolute positioning of the chart */
 `;
 
 export default function Chart({
@@ -24,7 +20,7 @@ export default function Chart({
 
   const symbol = useMemo(() => {
     if (!baseTokenSymbol || !quoteTokenSymbol) return "NASDAQ:AAPL";
-    return baseTokenSymbol + ":" + quoteTokenSymbol;
+    return `${baseTokenSymbol}:${quoteTokenSymbol}`;
   }, [quoteTokenSymbol, baseTokenSymbol]);
   return (
     <ChartContainer>
@@ -32,13 +28,6 @@ export default function Chart({
         symbol={"NASDAQ:AAPL"}
         theme="Dark"
         range="10m"
-        tyle={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
       />
     </ChartContainer>
   );
