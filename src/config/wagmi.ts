@@ -27,8 +27,8 @@ export const config = createConfig({
       metadata: {
         name: "TokenSight",
         description: "Token Analysis Dashboard",
-        url: "https://localhost:3000",
-        icons: ["https://localhost:3000/logo.png"],
+        url: "https://token-sight-kappa.vercel.app/",
+        icons: ["https://token-sight-kappa.vercel.app/"],
       },
     }),
   ],
