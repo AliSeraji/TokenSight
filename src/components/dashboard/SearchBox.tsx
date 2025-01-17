@@ -54,6 +54,8 @@ const Wrap = styled.div`
 
   ${({ theme }) => theme.mediaQueries.md`
     height: 32px;
+    font-size: 12px;
+    padding: 0px;
   `}
 `;
 

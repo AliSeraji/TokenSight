@@ -55,9 +55,6 @@ export default function LoginPage(): React.ReactNode {
   const router = useRouter();
   const { address, isConnected } = useAppKitAccount();
   const { open } = useAppKit();
-  //   const handleConnect = () => {
-  //     isConnected ? open({ view: "Account" }) : open({ view: "Connect" });
-  //   };
 
   useEffect(() => {
     if (address && isConnected) {

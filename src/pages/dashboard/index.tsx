@@ -17,6 +17,11 @@ const Wrap = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   background: ${({ theme }) => theme.Black30};
+
+  ${({ theme }) => theme.mediaQueries.md`
+    flex-direction: column;
+    justify-content: center;
+  `}
 `;
 
 const SearchDataWrap = styled.div<{ $isSelected?: boolean }>`
@@ -26,6 +31,9 @@ const SearchDataWrap = styled.div<{ $isSelected?: boolean }>`
   flex-direction: column;
   justify-content: flex-start;
   border-right: 1px solid ${({ theme }) => theme.White10};
+  ${({ theme }) => theme.mediaQueries.md`
+    min-width: 100%;
+  `}
 `;
 
 const Container = styled.div`

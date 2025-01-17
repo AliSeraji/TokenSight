@@ -18,6 +18,13 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 100;
+  ${({ theme }) => theme.mediaQueries.md`
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(0%, 0%);
+  `};
 `;
 
 const Header = styled.div`

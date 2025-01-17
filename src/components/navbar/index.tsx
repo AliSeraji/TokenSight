@@ -27,6 +27,10 @@ const Logo = styled.div`
   font-size: 22px;
   font-weight: 600;
   letter-spacing: 2px;
+  ${({ theme }) => theme.mediaQueries.md`
+    font-size: 18px;
+    letter-spacing: 1.5px;
+  `};
 `;
 
 const ConnectButton = styled.button`
@@ -50,6 +54,12 @@ const ConnectButton = styled.button`
     opacity: ${({ theme }) => theme.GrayBlueDark};
     cursor: not-allowed;
   }
+
+  ${({ theme }) => theme.mediaQueries.md`
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    padding: 6px;
+  `};
 `;
 
 export function Navbar() {

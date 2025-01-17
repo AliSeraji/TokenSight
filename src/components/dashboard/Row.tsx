@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Image from "next/image";
 import { truncateAddress } from "utils/functions";
 import { useSetSelectedPair } from "store/api/hooks";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useCloseSearchModal } from "store/search/hooks";
 import SafeImage from "components/ImageWithFallback";
+import { useIsMobile } from "libs/hooks/useIsMobile";
 
 const Warp = styled.div`
   display: flex;
@@ -22,6 +23,10 @@ const Warp = styled.div`
     cursor: pointer;
     border: 2px solid ${({ theme }) => theme.GrayBlueDark};
   }
+  ${({ theme }) => theme.mediaQueries.md`
+  gap: 4px;
+    padding: 2px;
+  `}
 `;
 
 const MainImage = styled(Image)`
@@ -53,6 +58,23 @@ const VersionPairName = styled.div`
     font-weight: 400px;
     color: ${({ theme }) => theme.text1};
   }
+
+  ${({ theme }) => theme.mediaQueries.md`
+    margin-right:8px;
+    gap: 6px;
+    & > :first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 12px; 
+  }
+  & > :last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 12px;
+  }
+  `};
 `;
 
 const AddressesWarper = styled.div`
@@ -78,9 +100,30 @@ const AddressesWarper = styled.div`
     font-weight: 400px;
     color: ${({ theme }) => theme.GrayText};
   }
+
+  ${({ theme }) => theme.mediaQueries.md`
+    padding: 0px;
+    gap: 6px;
+    & > :first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 12px; 
+  }
+  & > :last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 12px;
+  }
+  `};
 `;
 
 export default function Row({ pair }: { pair: PairData }): React.ReactNode {
+  const isMobile = useIsMobile();
+  const imgSize = useMemo(() => {
+    return isMobile ? 36 : 60;
+  }, [isMobile]);
   const setSelectedPair = useSetSelectedPair();
   const closeModal = useCloseSearchModal();
   const handleClick = useCallback(() => {
@@ -93,8 +136,8 @@ export default function Row({ pair }: { pair: PairData }): React.ReactNode {
       <SafeImage
         src={pair.info?.imageUrl}
         alt={"icon"}
-        width={60}
-        height={60}
+        width={imgSize}
+        height={imgSize}
       />
       <VersionPairName>
         <div>

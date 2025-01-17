@@ -50,7 +50,7 @@ export default function TokenDashboard({
       ) : (
         <NoData>
           <div>No Data</div>
-          <div>Click on the Search Button to See Data</div>
+          <div>Click on the Search Button to Search for Data</div>
         </NoData>
       )}
     </DashboardContainer>
